@@ -36,6 +36,45 @@ Based on:
    
    This test is ignored for the time being until this issue is sorted out.
 
+1. Test dependency `kotlintest-runner-junit5` [version `3.4.2`](https://mvnrepository.com/artifact/io.kotlintest/kotlintest-runner-junit5/3.4.2) fails with an `initializationError`
+
+    ```kotlin
+    dependencies {
+        testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
+    }
+    ```
+   
+   When using the `kotlintest-runner-junit5` with versions between [version `3.4.1`](https://mvnrepository.com/artifact/io.kotlintest/kotlintest-runner-junit5/3.4.1) and version `3.4.2`, the tests fail to run due to the following error.
+   
+   ```bash
+   java.lang.ArrayStoreException: sun.reflect.annotation.TypeNotPresentExceptionProxy
+   	at sun.reflect.annotation.AnnotationParser.parseClassArray(AnnotationParser.java:724)
+   	at sun.reflect.annotation.AnnotationParser.parseArray(AnnotationParser.java:531)
+   	at sun.reflect.annotation.AnnotationParser.parseMemberValue(AnnotationParser.java:355)
+   	at sun.reflect.annotation.AnnotationParser.parseAnnotation2(AnnotationParser.java:286)
+   	at sun.reflect.annotation.AnnotationParser.parseAnnotations2(AnnotationParser.java:120)
+   	at sun.reflect.annotation.AnnotationParser.parseAnnotations(AnnotationParser.java:72)
+   	at java.lang.Class.createAnnotationData(Class.java:3521)
+   	at java.lang.Class.annotationData(Class.java:3510)
+   	at java.lang.Class.getAnnotation(Class.java:3415)
+   	at java.lang.reflect.AnnotatedElement.isAnnotationPresent(AnnotatedElement.java:258)
+   	at java.lang.Class.isAnnotationPresent(Class.java:3425)
+   	at org.junit.platform.commons.util.AnnotationUtils.findAnnotation(AnnotationUtils.java:114)
+   	at org.junit.platform.commons.support.AnnotationSupport.findAnnotation(AnnotationSupport.java:126)
+   	at io.micronaut.test.extensions.kotlintest.MicronautKotlinTestExtension.instantiate(MicronautKotlinTestExtension.kt:72)
+   	at io.kotlintest.runner.jvm.JvmKt.instantiateSpec(jvm.kt:15)
+   	at io.kotlintest.runner.jvm.TestEngine.createSpec(TestEngine.kt:122)
+   	at io.kotlintest.runner.jvm.TestEngine.access$createSpec(TestEngine.kt:19)
+   	at io.kotlintest.runner.jvm.TestEngine$submitSpec$1.run(TestEngine.kt:105)
+   	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+   	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+   	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+   	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+   	at java.lang.Thread.run(Thread.java:748)
+   ```
+
+    Had to revert to a previous version, [version `3.4.0`](https://mvnrepository.com/artifact/io.kotlintest/kotlintest-runner-junit5/3.4.0) until this is sorted.  The issue seems to be related to JUnit 5 and some swallowed exception.  It seems that some types are missing from the classpath.  Further investigation is required.
+
 ## Insecure Example
 
 1. Disable security by marking the refresh endpoint as not sensitive and disabling security in the [application.yml](./src/main/resources/application.yml) file.
