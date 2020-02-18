@@ -1,0 +1,14 @@
+micronaut:
+  application:
+    name: kotlin-micronaut-management-example
+  security:
+    enabled: true
+
+endpoints:
+  refresh:
+    enabled: true
+    sensitive: true
+
+jackson:
+  serialization:
+    writeDatesAsTimestamps: false
