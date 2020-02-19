@@ -1,4 +1,4 @@
-# An Example of Micronaut Management Endpoints in Kotlin 
+# An example of how to reload services in Micronaut (Kotlin) 
 
 Based on:
 1. [14 Management & Monitoring](https://docs.micronaut.io/latest/guide/management.html)
