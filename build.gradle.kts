@@ -9,7 +9,7 @@ plugins {
 
     id("com.github.johnrengelman.shadow").version("5.2.0")
     id("org.jlleitschuh.gradle.ktlint").version("9.2.1")
-    id("com.github.ben-manes.versions").version("0.27.0")
+    id("com.github.ben-manes.versions").version("0.28.0")
 }
 
 repositories {
@@ -59,7 +59,7 @@ allOpen {
 
 dependencies {
     val kotlin = "1.3.61"
-    val micronaut = "1.3.1"
+    val micronaut = "1.3.2"
     val logbackClassic = "1.2.3"
     val jacksonModuleKotlin = "2.10.2"
     val jna = "5.5.0"
